@@ -5,7 +5,6 @@ const newBookModalWrapper = document.querySelector(".new-book-modal-wrapper");
 const newBookForm = document.querySelector("#new-book-form");
 const saveButton = document.querySelector("#save-button");
 const bookList = document.querySelector(".book-list");
-// bookList.style.display = "";
 
 function Book(title, author, pages, read) {
   (this.title = title),
@@ -40,16 +39,19 @@ function displayLibrary() {
       const listItem = document.createElement("li");
       listItem.classList = "book-list-item";
       listItem.innerHTML = book;
+
       bookList.appendChild(listDiv);
       listDiv.appendChild(listItem);
       listDiv.appendChild(buttonDiv);
       buttonDiv.appendChild(changeReadStatusButton);
       buttonDiv.appendChild(deleteBookButton);
+
       deleteBookButton.addEventListener("click", () => {
         let index = myLibrary.indexOf(book);
         myLibrary.splice(index, 1);
         listDiv.remove();
       });
+
       changeReadStatusButton.addEventListener("click", () => {
         let index = myLibrary.indexOf(book);
         if (myLibrary[index].includes(", read")) {
@@ -83,12 +85,14 @@ newBookForm.addEventListener("submit", (e) => {
   showNewBookModal(false);
   newBookForm.reset();
   if (bookList.innerHTML === "") {
-    displayLibrary();
+    displayLibrary(); //Render books (open)
   } else {
-    displayLibrary();
+    displayLibrary(); //Render books (close and open again)
     displayLibrary();
   }
 });
 
+//open modal
 const showNewBookModal = (show) => (show ? dialog.showModal() : dialog.close());
+//close modal
 dialog.addEventListener("click", (e) => !newBookModalWrapper.contains(e.target) && dialog.close());
