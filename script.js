@@ -6,18 +6,20 @@ const newBookForm = document.querySelector("#new-book-form");
 const saveButton = document.querySelector("#save-button");
 const bookList = document.querySelector(".book-list");
 
-function Book(title, author, pages, read) {
-  (this.title = title),
-    (this.author = author),
-    (this.pages = pages),
-    (this.read = read),
-    (this.info = function () {
-      let status;
-      if (this.read === "read") {
-        status = "read";
-      } else status = "not read yet";
-      return this.title + " by " + author + ", " + this.pages + " pages, " + status;
-    });
+class Book {
+  constructor(title, author, pages, read) {
+    (this.title = title),
+      (this.author = author),
+      (this.pages = pages),
+      (this.read = read);
+  }
+  info() {
+    let status;
+    if (this.read === "read") {
+      status = "read";
+    } else status = "not read yet";
+    return this.title + " by " + this.author + ", " + this.pages + " pages, " + status;
+  }
 }
 
 function addBookToLibrary(book) {
@@ -95,4 +97,7 @@ newBookForm.addEventListener("submit", (e) => {
 //open modal
 const showNewBookModal = (show) => (show ? dialog.showModal() : dialog.close());
 //close modal
-dialog.addEventListener("click", (e) => !newBookModalWrapper.contains(e.target) && dialog.close());
+dialog.addEventListener(
+  "click",
+  (e) => !newBookModalWrapper.contains(e.target) && dialog.close()
+);
